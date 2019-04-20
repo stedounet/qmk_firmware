@@ -1,14 +1,25 @@
 #include QMK_KEYBOARD_H
 #include "keymap_french.h"
 
+
+#define _BASE 0
+#define _AZERTY 1
+#define _AZERTY2 2
+#define _FN1 10
+#define _FN2 11
+/*
 enum layer_names {
     _BASE,
     _FN1,
     _AZERTY,
     _AZERTY2
+};*/
+
+enum custom_keycodes {
+  BASE = SAFE_RANGE,
+  AZERTY,
+  AZERTY2,
 };
-
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* 
@@ -24,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * │LCTRL │L_GUI  │L_ALT │SPC          │FN1   │     │SPC   │BSPC     │FN2  │R_ALT│R_CTR│LEFT │DOWN │RIGHT│
    * └──────┴───────┴──────┴─────────────┴──────┘     └──────┴─────────┴─────┴─────┴─────┴─────┴─────┴─────┘
    */
-  [_BASE] = LAYOUT(
+  [_BASE] = LAYOUT_65(
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,        KC_7,    KC_8,    KC_9,     KC_0,     KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC, KC_DEL,
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_END,
     KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,     KC_K,     KC_L,    KC_SCLN, KC_QUOT, KC_ENT,  KC_UP,
@@ -32,12 +43,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,  MO(_FN1),                               KC_SPC,  KC_BSPC,  MO(_FN2), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
   ),
 
-  [_FN1] = LAYOUT(
-    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_BSPC, 
-    _______, _______, KC_HOME, KC_UP,   KC_END,  _______,              BASE   , AZERTY , AZERTY2, _______, _______, _______, _______, _______, 
-    _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,                       _______, KC_MINS, KC_EQL,  _______, _______, _______, _______, 
-    _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______, _______, 
-    RESET,   _______, _______, _______, _______,                                _______, _______, _______, _______, _______, _______, _______
+  [_FN1] = LAYOUT_65(
+    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_BSPC, _______,
+    _______, _______, KC_HOME, KC_UP,   KC_END,  _______,              BASE   , AZERTY , AZERTY2, _______, _______, _______, _______, _______, _______,
+    _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,                       _______, KC_MINS, KC_EQL,  _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______, _______, _______,
+    RESET,   _______, _______, _______, _______,                                _______, _______, _______, _______, _______, _______, _______, _______
+
+  ),
+
+  [_FN2] = LAYOUT_65(
+    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,       KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_BSPC, _______,
+    _______, _______, KC_HOME, KC_UP,   KC_END,  _______,              BASE   , AZERTY , AZERTY2, _______, _______, _______, _______, _______, _______,
+    _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,                       _______, KC_MINS, KC_EQL,  _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______, _______, _______,
+    RESET,   _______, _______, _______, _______,                                _______, _______, _______, _______, _______, _______, _______, _______
 
   ),
   
@@ -55,7 +75,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * └──────┴───────┴──────┴─────────────┴──────┘     └──────┴─────────┴─────┴─────┴─────┴─────┴─────┴─────┘
    */
 
-  [_AZERTY] = LAYOUT(
+  [_AZERTY] = LAYOUT_65(
+    KC_ESC,  FR_AMP,  FR_EACU, FR_QUOT, FR_APOS, FR_LPRN, FR_MINS,     FR_EGRV, FR_UNDS, FR_CCED,  FR_AGRV,  FR_RPRN, FR_EQL,  KC_BSPC, KC_BSPC, KC_DEL,
+    KC_TAB,  FR_A,    FR_Z,    KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,    FR_CIRC, FR_DLR,  KC_BSLS, KC_END,
+    KC_CAPS, FR_Q,    KC_S,    KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,     KC_K,     KC_L,    FR_M,    KC_QUOT, KC_ENT,  KC_UP,
+    KC_LSFT, KC_W,    KC_X,    KC_C,    KC_V,    KC_B,                          KC_N,    FR_COMM,  FR_SCLN,  FR_COLN, FR_EXLM, KC_RSFT, KC_UP,   KC_DOWN,
+    KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,  MO(_FN1),                               KC_SPC,  KC_BSPC,  MO(_FN2), KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
+  ),
+
+  [_AZERTY2] = LAYOUT_65(
     KC_ESC,  FR_AMP,  FR_EACU, FR_QUOT, FR_APOS, FR_LPRN, FR_MINS,     FR_EGRV, FR_UNDS, FR_CCED,  FR_AGRV,  FR_RPRN, FR_EQL,  KC_BSPC, KC_BSPC, KC_DEL,
     KC_TAB,  FR_A,    FR_Z,    KC_E,    KC_R,    KC_T,                 KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,    FR_CIRC, FR_DLR,  KC_BSLS, KC_END,
     KC_CAPS, FR_Q,    KC_S,    KC_D,    KC_F,    KC_G,                          KC_H,    KC_J,     KC_K,     KC_L,    FR_M,    KC_QUOT, KC_ENT,  KC_UP,
