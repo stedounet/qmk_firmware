@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "keymap_french.h"
 
 enum layers {
     _AZERTY = 0,
@@ -49,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Lower Layer: Symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |   ²    |  &   |  é   |  "   |  '   |  (   |                              |   -  |   è  |  _   |  ç   |  à   |    )   |
+ * |   ²    |  &   |  é   |   "  |  '   |  (   |                              |   -  |   è  |  _   |  ç   |  à   |    )   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  ^   |  $   |  (   |  [   |  {   |                              |      |      |      |  *   |  %   |    =   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
@@ -61,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
     [_LOWER] = LAYOUT(
-      _______, FR_AMP,  FR_EACU, FR_QUOT, FR_APOS, FR_LPRN,                                    FR_MINS, FR_EGRV, FR_UNDS, FR_CCED, FR_AGRV,FR_RPRN,
-      _______, KC_CIRC, KC_DLR,  KC_LPRN, KC_LBRC, LSFT(KC_LBRC),                                   _______, _______, _______, _______, KC_PERC, FR_EQL,
+      _______, FR_AMP,  FR_EACU, FR_QUOT, FR_APOS, FR_LPRN,                                         FR_MINS, FR_EGRV, FR_UNDS, FR_CCED,  FR_AGRV, FR_RPRN,
+      _______, KC_CIRC, KC_DLR,  KC_LPRN, KC_LBRC, LSFT(KC_LBRC),                                   _______, _______, _______, _______,  KC_PERC, FR_EQL,
       _______, KC_PERC, KC_HASH, KC_RPRN, KC_RBRC, LSFT(KC_RBRC), _______, _______, _______, KC_UP, _______, _______,  KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
-                                 _______, _______, _______,       KC_SCLN, KC_EQL,  KC_RIGHT, KC_DOWN, KC_LEFT, _______
+                                 _______, _______, _______,       KC_SCLN, KC_EQL,  KC_RIGHT, KC_DOWN, KC_LEFT, _______, _______
     ),
 /*
  * Raise Layer: Number keys, media, navigation
@@ -170,7 +171,7 @@ static void render_status(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case _AZERTY:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_P(PSTR("Stedounet\n"), false);
             break;
         case _LOWER:
             oled_write_P(PSTR("Lower\n"), false);
