@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * | LShift |   W  |   X  |   C  |   V  |   B  | esc  |ADJUST|  | TAB  |LShift|   N  |   ,  |   ;  |   :  |   !  |   *    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | GUI  | ALT  |Lower | Space| Raise|  | bkspc|enter | altgr|  del |      |
+ *                        | GUI  | ALT  |Lower | Raise| Space|  | bkspc|enter | altgr|  del |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, 	FR_Q,   KC_S, KC_D,   KC_F,   KC_G,                                       KC_H,    KC_J,    KC_K,    KC_L,    FR_M, FR_UGRV,
       KC_LSFT,  KC_Z,   KC_X, KC_C,   KC_V,   KC_B, KC_ESC,MO(_ADJUST),KC_TAB, KC_LSFT, KC_N,    FR_COMM, FR_SCLN, FR_COLN, FR_EXLM, FR_ASTR,
 
-          KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, MO(_RAISE),             KC_BSPC,  KC_ENT, MO(_ALGR), KC_DEL,  KC_RALT
+          KC_LGUI, KC_LALT, MO(_LOWER), MO(_RAISE), KC_SPC,             KC_BSPC,  KC_ENT, MO(_ALGR), KC_DEL,  KC_RALT
     ),
 /*
  * Lower Layer: Symbols
