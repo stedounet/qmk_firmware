@@ -32,20 +32,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |  TAB   |   A  |   Z  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |   ^    |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |  Ctrl  |   Q  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  |   M  |   ù    |
+ * | Lshift |   Q  |   S  |  D   |   F  |   G  |                              |   H  |   J  |   K  |   L  |   M  |   ù    |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift |   W  |   X  |   C  |   V  |   B  | esc  |ADJUST|  | TAB  |LShift|   N  |   ,  |   ;  |   :  |   !  |   *    |
+ * | LCtrl  |   W  |   X  |   C  |   V  |   B  | esc  |ADJUST|  | TAB  |LShift|   N  |   ,  |   ;  |   :  |   !  |   *    |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | GUI  | ALT  |Raise | Lower| Space|  | bkspc|enter | altgr|  del |      |
+ *                        | GUI  | ALT  |Lower | Space| Raise|  | bkspc|enter | altgr|   <  |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_AZERTY] = LAYOUT(
       KC_TAB,	FR_A,   FR_Z, KC_E,   KC_R,   KC_T,                                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, FR_CIRC,
-      KC_LCTL, 	FR_Q,   KC_S, KC_D,   KC_F,   KC_G,                                       KC_H,    KC_J,    KC_K,    KC_L,    FR_M, FR_UGRV,
-      KC_LSFT,  KC_Z,   KC_X, KC_C,   KC_V,   KC_B, KC_ESC,MO(_ADJUST),KC_TAB, KC_LSFT, KC_N,    FR_COMM, FR_SCLN, FR_COLN, FR_EXLM, FR_ASTR,
-
-          KC_LGUI, KC_LALT, MO(_RAISE), MO(_LOWER), KC_SPC,             KC_BSPC,  KC_ENT, MO(_ALGR), KC_DEL,  KC_RALT
+      KC_LSFT, 	FR_Q,   KC_S, KC_D,   KC_F,   KC_G,                                       KC_H,    KC_J,    KC_K,    KC_L,    FR_M, FR_UGRV,
+      KC_LCTL,  KC_Z,   KC_X, KC_C,   KC_V,   KC_B, KC_ESC,MO(_ADJUST),KC_TAB, KC_LSFT, KC_N,    FR_COMM, FR_SCLN, FR_COLN, FR_EXLM, FR_ASTR,
+          KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, MO(_RAISE),              KC_BSPC,  KC_ENT, MO(_ALGR), FR_LESS,  KC_RALT
     ),
 /*
  * Lower Layer: Symbols
@@ -55,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  ^   |  $   |  (   |  [   |  {   |                              |      | pgdn |  up  | pgup |  %   |    =   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |  caps  |  %   |  #   |  )   |  ]   |  }   |      |      |  | pgup |  up  | pgdn | left | down | right|  / ? | - _    |
+ * |  caps  |  %   |  #   |  )   |  ]   |  }   |      |      |  | pgup |  up  | pgdn | left | down | right|  / ? |    <   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |  ;   |  =   |  | left | down |right |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
@@ -64,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT(
       KC_ESC,  FR_AMP,  FR_EACU, FR_QUOT, FR_APOS, FR_LPRN,                                         			FR_MINS, FR_EGRV, FR_UNDS, FR_CCED,  FR_AGRV, FR_RPRN,
-      _______, ALGR(FR_CCED), FR_DLR,  FR_LPRN, ALGR(FR_LPRN), ALGR(FR_APOS),                                   	_______, KC_PGUP, KC_UP,   KC_PGDN,  KC_PERC, FR_EQL,
-      KC_CAPS, LSFT(FR_UGRV), ALGR(FR_QUOT), FR_RPRN, ALGR(FR_RPRN), ALGR(FR_EQL), _______, _______,  KC_PGUP, KC_UP,   KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT,  KC_SLSH, KC_MINS,
+      KC_CAPS, ALGR(FR_CCED), FR_DLR,  FR_LPRN, ALGR(FR_LPRN), ALGR(FR_APOS),                                   	_______, KC_PGUP, KC_UP,   KC_PGDN,  KC_PERC, FR_EQL,
+      _______, LSFT(FR_UGRV), ALGR(FR_QUOT), FR_RPRN, ALGR(FR_RPRN), ALGR(FR_EQL), _______, _______,  KC_PGUP, KC_UP,   KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, FR_LESS, FR_LESS,
                                              _______, _______,       _______,      KC_SCLN, KC_EQL,   KC_LEFT, KC_DOWN, KC_RIGHT,_______, _______
     ),
 /*
