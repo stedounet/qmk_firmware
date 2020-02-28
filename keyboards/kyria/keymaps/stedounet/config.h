@@ -31,3 +31,8 @@
 // #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK
 #define EE_HANDS
+
+#ifdef COMBO_ENABLE
+#define COMBO_COUNT 1
+#define COMBO_TERM 200
+#endif
