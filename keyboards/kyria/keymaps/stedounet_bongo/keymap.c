@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,	FR_A,   FR_Z, KC_E,   KC_R,   KC_T,                                       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, FR_CIRC,
       KC_LSFT, 	FR_Q,   KC_S, KC_D,   KC_F,   KC_G,                                       KC_H,    KC_J,    KC_K,    KC_L,    FR_M, FR_UGRV,
       KC_LCTL,  KC_Z,   KC_X, KC_C,   KC_V,   KC_B, KC_ESC,MO(_ADJUST),KC_TAB, KC_LSFT, KC_N,    FR_COMM, FR_SCLN, FR_COLN, FR_EXLM, FR_ASTR,
-          KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, MO(_RAISE),              KC_BSPC,  KC_ENT, MO(_ALGR), FR_LESS,  KC_RALT
+          KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, MO(_RAISE),              KC_BSPC,  KC_ENT, MO(_ALGR), FR_LABK,  KC_RALT
     ),
 /*
  * Lower Layer: Symbols
@@ -64,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
     [_LOWER] = LAYOUT(
-      KC_ESC,  FR_AMP,  FR_EACU, FR_QUOT, FR_APOS, FR_LPRN,                                         			FR_MINS, FR_EGRV, FR_UNDS, FR_CCED,  FR_AGRV, FR_RPRN,
-      _______, ALGR(FR_CCED), FR_DLR,  FR_LPRN, ALGR(FR_LPRN), ALGR(FR_APOS),                                   	_______, KC_PGUP, KC_UP,   KC_PGDN,  KC_PERC, FR_EQL,
-      _______, LSFT(FR_UGRV), ALGR(FR_QUOT), FR_RPRN, ALGR(FR_RPRN), ALGR(FR_EQL), _______, _______,  _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, FR_LESS, FR_LESS,
+      KC_ESC,  FR_AMPR,  FR_EACU, FR_DQUO, FR_QUOT, FR_LPRN,                                         			FR_MINS, FR_EGRV, FR_UNDS, FR_CCED,  FR_AGRV, FR_RPRN,
+      _______, ALGR(FR_CCED), FR_DLR,  FR_LPRN, ALGR(FR_LPRN), ALGR(FR_QUOT),                                   	_______, KC_PGUP, KC_UP,   KC_PGDN,  KC_PERC, FR_EQL,
+      _______, LSFT(FR_UGRV), ALGR(FR_QUOT), FR_RPRN, ALGR(FR_RPRN), ALGR(FR_EQL), _______, _______,  _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, FR_LABK, FR_LABK,
                                              _______, _______,       _______,      KC_SCLN, KC_EQL,   _______, _______, _______,_______, _______
     ),
 /*
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                        `----------------------------------'  `----------------------------------'
   */
      [_ALGR] = LAYOUT(
-       _______, ALGR(FR_AMP),  ALGR(FR_EACU), ALGR(FR_QUOT), ALGR(FR_APOS), ALGR(FR_LPRN), ALGR(FR_MINS), ALGR(FR_EGRV), ALGR(FR_UNDS), ALGR(FR_CCED),  ALGR(FR_AGRV), ALGR(FR_RPRN),
+       _______, ALGR(FR_AMPR),  ALGR(FR_EACU), ALGR(FR_DQUO), ALGR(FR_QUOT), ALGR(FR_LPRN), ALGR(FR_MINS), ALGR(FR_EGRV), ALGR(FR_UNDS), ALGR(FR_CCED),  ALGR(FR_AGRV), ALGR(FR_RPRN),
        _______, _______, _______, _______, _______, _______,                                     _______, KC_PGUP, KC_UP,   KC_PGDN, _______, ALGR(KC_EQL),
        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -127,9 +127,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_ADJUST] = LAYOUT(
       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
-      _______,  _______, _______, _______, _______, _______,                                     _______, _______, _______, KC_F11,  KC_F12,  _______,
-      _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, KC_F11,  KC_F12,  _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 // /*
 //  * Layer template
