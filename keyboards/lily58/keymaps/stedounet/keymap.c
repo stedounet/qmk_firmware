@@ -39,6 +39,14 @@ void keyboard_post_init_user(void) {
 	rgblight_sethsv_noeeprom(6, 255, 255);
 }
 
+enum unicode_names {
+	NOT_EQL
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+	[NOT_EQL]  = 0x2260
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -65,24 +73,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  |  F10 |  F12 |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |next t| home |  up  | Pg up| VOL U|                    |   -  |   7  |   8  |   9  |   /  |  F12 |
+ * |      |next t| home |  up  | Pg up| VOL U|                    |   -  |   7  |   8  |   9  |numlck|   =  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | pause| left | down | right| VOL D|-------.    ,-------|   +  |   4  |   5  |   6  |   *  |      |
+ * |      | pause| left | down | right| VOL D|-------.    ,-------|   +  |   4  |   5  |   6  |   *  |  =/  |
  * |------+------+------+------+------+------|       |    |    ]  |------+------+------+------+------+------|
- * |      |prev t|  end |  del |Pg dwn| MUTE |-------|    |-------|   0  |   1  |   2  |   3  |   .  |      |
+ * |      |prev t|  end |  del |Pg dwn| MUTE |-------|    |-------|      |   1  |   2  |   3  |   .  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |      |      |      | /       /       \      \  |      |      |      |
+ *                   |      |      |      | /       /       \      \  |      |   0  |   .  |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `--------------------'-------'           '------''--------------------'
  */
     [1] = LAYOUT(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,         KC_F11,
-        _______, KC_MNXT, KC_HOME, KC_UP,   KC_PGUP, KC_VOLU,                      KC_PMNS, KC_P7,   KC_P8,   KC_P9,  KC_PSLS,        KC_F12,
-        _______, KC_MPLY, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD,                      KC_PPLS, KC_P4,   KC_P5,   KC_P6,  KC_PAST,        RCTL_T(KC_PEQL),
-        _______, KC_MPRV, KC_END,  KC_DEL,  KC_PGDN, KC_MUTE, _______,    KC_RPRN, KC_P0,   KC_P1,   KC_P2,   KC_P3,  C_S_T(KC_PDOT), KC_RSFT,
-        	 	     _______, _______, _______, _______,               _______, _______, _______, _______
+        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,         KC_F12,
+        _______, KC_MNXT, KC_HOME, KC_UP,   KC_PGUP, KC_VOLU,                      KC_PMNS, KC_P7,   KC_P8,   KC_P9,  KC_NLCK,        FR_EQL,
+        _______, KC_MPLY, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD,                      KC_PPLS, KC_P4,   KC_P5,   KC_P6,  KC_PAST,        X(NOT_EQL),
+        _______, KC_MPRV, KC_END,  KC_DEL,  KC_PGDN, KC_MUTE, _______,    KC_RPRN, _______,   KC_P1,   KC_P2,   KC_P3,  C_S_T(KC_PDOT), KC _RSFT,
+        	 	     _______, _______, _______, _______,               _______, _______, KC_P0, KC_PDOT
     )
 };
 
