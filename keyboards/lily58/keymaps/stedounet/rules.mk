@@ -1,9 +1,8 @@
 OLED_DRIVER_ENABLE = yes
 WPM_ENABLE = yes
 COMBO_ENABLE = no
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = yes      # Enable WS2812 RGB underlight. 
-UNICODEMAP_ENABLE = yes
+RGBLIGHT_ENABLE = yes
+UNICODEMAP_ENABLE = no
 
 MOUSEKEY_ENABLE = no
 TAP_DANCE_ENABLE = no

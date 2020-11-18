@@ -28,6 +28,9 @@
 #define ANIM_SIZE 512
 
 char wpm[16];
+char hue[10];
+char sat[10];
+char val[10];
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 uint8_t current_idle_frame = 0;
@@ -39,13 +42,12 @@ void keyboard_post_init_user(void) {
 	rgblight_sethsv_noeeprom(6, 255, 255);
 }
 
-enum unicode_names {
-	NOT_EQL
+enum custom_keycodes {
+	CK_NOTEQUAL = SAFE_RANGE,
+	CK_ORANGE,
+	CK_PURPLE,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
-	[NOT_EQL]  = 0x2260
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -55,9 +57,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   A  |   Z  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |   ^  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |LCTRL |   Q  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   M  |   ù  |
- * |------+------+------+------+------+------|  GUI  |    |    ]  |------+------+------+------+------+------|
- * |LShift|   W  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   ,  |   ;  |   :  |   !  |   *  |
+ * |LShift|   Q  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   M  |   ù  |
+ * |------+------+------+------+------+------|  GUI  |    | ADJUST|------+------+------+------+------+------|
+ * |LCtrl |   W  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   ,  |   ;  |   :  |   !  |   *  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |  GUI |  ALT | LOWER| /Space  /       \Enter \  |BackSP| ALTGR|   <  |
  *                   |      |      |      |/       /         \      \ |      |      |      |
@@ -66,8 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_ESC,  FR_AMPR, FR_EACU, FR_DQUO, FR_QUOT, FR_LPRN,                      FR_MINS,FR_EGRV, FR_UNDS, FR_CCED,FR_AGRV, FR_RPRN,
         KC_TAB,  FR_A,    FR_Z,    KC_E,    KC_R,    KC_T,                         KC_Y,   KC_U,    KC_I,    KC_O,   KC_P,    FR_CIRC,
-        KC_LCTL, FR_Q,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,   KC_J,    KC_K,    KC_L,   FR_M,    FR_UGRV, 
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI,    KC_RBRC, KC_N,   FR_COMM, FR_SCLN, FR_COLN,FR_EXLM, FR_ASTR,
+        KC_LSFT, FR_Q,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,   KC_J,    KC_K,    KC_L,   FR_M,    FR_UGRV, 
+        KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI,    MO(2),   KC_N,   FR_COMM, FR_SCLN, FR_COLN,FR_EXLM, FR_ASTR,
         	 	     KC_LGUI, KC_LALT, MO(1),   KC_SPC,                KC_ENT,  KC_BSPC, KC_ALGR, FR_LABK
     ),
 
@@ -75,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  |  F10 |  F12 |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |next t| home |  up  | Pg up| VOL U|                    |   -  |   7  |   8  |   9  |numlck|   =  |
+ * |      |      |  up  |      | Pg up| VOL U|                    |   -  |   7  |   8  |   9  |numlck|   =  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | pause| left | down | right| VOL D|-------.    ,-------|   +  |   4  |   5  |   6  |   *  |  =/  |
- * |------+------+------+------+------+------|       |    |    ]  |------+------+------+------+------+------|
- * |      |prev t|  end |  del |Pg dwn| MUTE |-------|    |-------|      |   1  |   2  |   3  |   .  |      |
+ * |      | left | down | right|PgDown| VOL D|-------.    ,-------|   +  |   4  |   5  |   6  |   *  |  =/  |
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |      |      |  end |  del |      | MUTE |-------|    |-------|      |   1  |   2  |   3  |   .  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /       /       \      \  |      |   0  |   .  |
  *                   |      |      |      |/       /         \      \ |      |      |      |
@@ -87,10 +89,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [1] = LAYOUT(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,         KC_F12,
-        _______, KC_MNXT, KC_HOME, KC_UP,   KC_PGUP, KC_VOLU,                      KC_PMNS, KC_P7,   KC_P8,   KC_P9,  KC_NLCK,        FR_EQL,
-        _______, KC_MPLY, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD,                      KC_PPLS, KC_P4,   KC_P5,   KC_P6,  KC_PAST,        X(NOT_EQL),
-        _______, KC_MPRV, KC_END,  KC_DEL,  KC_PGDN, KC_MUTE, _______,    KC_RPRN, _______,   KC_P1,   KC_P2,   KC_P3,  C_S_T(KC_PDOT), KC _RSFT,
+        _______, _______, KC_UP,   _______, KC_PGUP, KC_VOLU,                      KC_PMNS, KC_P7,   KC_P8,   KC_P9,  KC_NLCK,        FR_EQL,
+        _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_VOLD,                      KC_PPLS, KC_P4,   KC_P5,   KC_P6,  KC_PAST,        CK_NOTEQUAL,
+        _______, _______, KC_END,  KC_DEL,  _______, KC_MUTE, _______,    _______, _______,   KC_P1,   KC_P2,   KC_P3,  C_S_T(KC_PDOT), KC_RSFT,
         	 	     _______, _______, _______, _______,               _______, _______, KC_P0, KC_PDOT
+    ),
+
+/* ADJUST
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |                    |ORANGE| Hue+ | Hue- |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------.    ,-------|PURPLE| Satu+| Satu-|      |      |      |
+ * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |-------|    |-------|LedOFF| Brig+| Brig-|      |      |      |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |      |      |      | /       /       \      \  |      |      |      |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `--------------------'-------'           '------''--------------------'
+ */
+    [2] = LAYOUT(
+        _______, _______, _______, _______, _______, _______,                      _______,    _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                      CK_ORANGE, RGB_HUI, RGB_HUD, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,                      CK_PURPLE, RGB_SAI, RGB_SAD, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,    _______, RGB_TOG,    RGB_VAI, RGB_VAD, _______, _______, _______,
+        	 	     _______, _______, _______, _______,               _______, _______, _______, _______
     )
 };
 
@@ -101,24 +125,30 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 static void render_status(void) {
-    oled_write_P(PSTR("    layer "), false);
+    oled_write_P(PSTR("h:"), false);
+    sprintf(hue, "%03d", rgblight_get_hue());
+    oled_write(hue, false);
+    
+    oled_write_P(PSTR(", s:"), false);
+    sprintf(sat, "%03d", rgblight_get_sat());
+    oled_write(sat, false);
 
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_P(PSTR("     0"), false);
-            break;
-        case 1:
-            oled_write_P(PSTR("     1"), false);
-            break;
-        default:
-            oled_write_P(PSTR("     ?"), false);
-            break;
-    }
+    oled_write_P(PSTR(", v:"), false);
+    sprintf(val, "%03d", rgblight_get_val());
+    oled_write(val, false);
 
-    oled_write_P(PSTR("\n\n    "), false);
+
+    oled_write_P(PSTR("\n\n"), false);
     sprintf(wpm, "%03d", get_current_wpm());
     oled_write(wpm, false);
-    oled_write_P(PSTR("      wpm"), false);
+    oled_write_P(PSTR("      wpm\n"), false);
+
+    uint8_t led_usb_state = host_keyboard_leds();
+    if (!IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK)) {
+        oled_write_P(PSTR("NUMPAD OFF!"), false);
+    } else {
+        oled_write_P(PSTR("           "), false);
+    }
 }
 
 static void render_anim(void) {
@@ -218,3 +248,28 @@ void oled_task_user(void) {
     }
 }
 #endif
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case CK_NOTEQUAL:
+        if (record->event.pressed) {
+            SEND_STRING("≠");
+        }
+        break;
+    case CK_ORANGE:
+        if (record->event.pressed) {
+	    //rgblight_sethsv_noeeprom(6, 255, 255);
+	    rgblight_sethsv_master(6, 255, 255);
+	    rgblight_sethsv_slave(6, 255, 255);
+        }
+        break;
+    case CK_PURPLE:
+        if (record->event.pressed) {
+	    //rgblight_sethsv_noeeprom(180, 255, 255);
+	    rgblight_sethsv_master(180, 255, 255);
+	    rgblight_sethsv_slave(180, 255, 255);
+        }
+        break;
+    }
+    return true;
+};
